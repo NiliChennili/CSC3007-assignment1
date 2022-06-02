@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <title>Pollutant Standards Index (PSI)</title>
+<style>
+h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:aliceblue;
+    
+  }
+
+h2{
+  display: flex;
+ justify-content: center;
+ align-items: center;
+ font-size: medium;
+ color:aliceblue;
+
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #f9f6f6;
+  text-align: left;
+  padding: 8px;
+  color:aliceblue;
+}
+
+body {
+  background-image: url('https://i.pinimg.com/564x/f8/af/9a/f8af9a3f54313baaf2fb8c2dfc058d4b.jpg');
+}
+</style> 
+</head>
+
+<body>
+<h1>Pollutant Standards Index (PSI)</h1>
+<h2 id="updatetime">Last Updated: </h2>
+<table>
+    <thead>
+        <th>No.</th>
+        <th scope="col">Metric</th>
+        <th scope="col">National</th>
+        <th scope="col">Central</th>
+        <th scope="col">West</th>
+        <th scope="col">East</th>
+        <th scope="col">North</th>
+        <th scope="col">South</th>
+    </thead>
+    <tbody id="table">
+    </tbody>
+</table>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    fetch("https://api.data.gov.sg/v1/environment/psi").then(
+  res => {
+    res.json()
+    .then(items=> 
+    
+    {
+      var updateTime = new Date(items.items[0].update_timestamp);
+      
+       $("#updatetime").append("<p>"+ updateTime+"</p>");
+        let counter = 1;
+        for (var key in items.items[0].readings){
+
+                $("#table").append("<tr id=\"row" + counter +"\"></tr>")
+                                    const row = $("#row"+counter)
+                                    .append("<th scope=\"row\">" + counter + "</th>")
+                                    .append("<td>" + key +"</td>")
+                                    .append("<td>" + items.items[0].readings[key]["national"] +"</td>")
+                                    .append("<td>" + items.items[0].readings[key]["north"] +"</td>")
+                                    .append("<td>" + items.items[0].readings[key]["south"] +"</td>")
+                                    .append("<td>" + items.items[0].readings[key]["east"] +"</td>")
+                                    .append("<td>" + items.items[0].readings[key]["west"] +"</td>")
+                                    .append("<td>" + items.items[0].readings[key]["central"] +"</td>");
+                                    ++counter;
+                                     
+            }
+                         
+   }
+    )
+  }
+)
+
+</script>
+
+</body>
+</html>

@@ -7,4 +7,4 @@ GUID :1901883
 Email : 1901883@sit.singaporetech.edu.sg 
 
 
-URL : 
+URL : https://nilichennili.github.io/CSC3007-assignment1/
